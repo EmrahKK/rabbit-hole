@@ -61,15 +61,15 @@ func main() {
 		nil,     // arguments
 	)
 	failOnError(err, "Failed to declare a queue")
-
 	// read data file
 	messages := getMessages()
 	// initialize global pseudo random generator
 	rand.Seed(time.Now().Unix())
+	
 	for {
 		message := messages[rand.Intn(len(messages))]
 		//fmt.Println(message.Message)
-
+		log.Printf("Sending a message: %s", message.toString())
 		err = ch.Publish(
 			"",     // exchange
 			q.Name, // routing key
@@ -77,7 +77,7 @@ func main() {
 			false,  // immediate
 			amqp.Publishing{
 				ContentType: "text/plain",
-				Body:        []byte(message.Message),
+				Body:        []byte(message.toString()),
 			})
 		failOnError(err, "Failed to publish a message")
 		time.Sleep(time.Second)
