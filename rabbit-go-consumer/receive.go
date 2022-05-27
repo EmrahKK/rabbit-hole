@@ -11,6 +11,8 @@ func failOnError(err error, msg string) {
 	}
 }
 
+// test another
+
 func main() {
 	//connect to RabbitMQ server
 	conn, err := amqp.Dial("amqp://guest:guest@localhost:5672/")
